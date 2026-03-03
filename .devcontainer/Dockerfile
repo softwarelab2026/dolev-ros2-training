@@ -5,4 +5,3 @@ RUN apt update
 RUN apt install -y ros-humble-turtlesim
 RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
 # Keep root user (you can change later)
-USER root
