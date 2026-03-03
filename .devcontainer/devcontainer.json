@@ -1,0 +1,9 @@
+{
+  "name": "ROS2 Dev",
+  "image": "osrf/ros:humble-desktop",
+  "runArgs": [
+    "-e", "DISPLAY=host.docker.internal:0"
+  ],
+  "postCreateCommand": "apt update && apt install -y ros-humble-turtlesim",
+  "remoteUser": "root"
+}
