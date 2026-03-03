@@ -9,6 +9,9 @@
     "source=${env:HOME}/.ssh/id_ed25519.pub,target=/root/.ssh/id_ed25519.pub,type=bind,consistency=cached",
     "source=${env:HOME}/.ssh/known_hosts,target=/root/.ssh/known_hosts,type=bind,consistency=cached"
   ],
-  "postCreateCommand": "chmod 600 /root/.ssh/id_ed25519 && eval \"$(ssh-agent -s)\" && ssh-add /root/.ssh/id_ed25519 && git config --global core.sshCommand 'ssh -i /root/.ssh/id_ed25519 -o StrictHostKeyChecking=yes' && apt update && apt install -y ros-humble-turtlesim",
+  "postCreateCommand": "./post_installations.sh",
   "remoteUser": "root"
 }
+
+
+
