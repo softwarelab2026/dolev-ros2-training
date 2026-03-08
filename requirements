@@ -1,1 +1,1 @@
-pytest mypy pre-commit
+pytest mypy pre-commit ruff
