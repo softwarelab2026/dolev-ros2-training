@@ -1,1 +1,1 @@
-pytest mypy pre-commit ruff
+pytest mypy pre-commit ruff colcon-common-extensions
