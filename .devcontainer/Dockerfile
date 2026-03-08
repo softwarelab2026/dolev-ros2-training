@@ -7,6 +7,7 @@ RUN apt update
 # Install pip
 RUN apt install -y python3-pip
 RUN pip3 install --upgrade pip
+RUN pip3 install pre-commit
 
 # Install python dependencies
 RUN apt install -y ros-humble-turtlesim ros-humble-rqt python3-colcon-core python3-colcon-common-extensions
