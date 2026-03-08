@@ -2,8 +2,12 @@
 __pycache__/
 *.pyc
 *.pyo
-*.py[cod]
-*$py.class
+*.pyd
+.Python
+
+
+
+
 
 # Virtual environment
 venv/
