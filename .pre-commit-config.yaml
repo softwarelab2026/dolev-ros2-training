@@ -14,11 +14,3 @@ repos:
       - id: mypy
         
 
-  - repo: local
-    hooks:
-      - id: pytest
-        name: run tests
-        entry: pytest 
-        language: system
-        pass_filenames: false
-        always_run: true
