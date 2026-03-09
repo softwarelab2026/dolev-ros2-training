@@ -2,32 +2,35 @@
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import String
+from sensor_msgs.msg import Image
 
 
-class MinimalSubscriber(Node):
+class BallDetectorNode(Node):
     def __init__(self):
-        super().__init__("minimal_subscriber")
-        self.subscription = self.create_subscription(
-            String, "topic", self.listener_callback, 10
+        super().__init__("ball_detector_node")
+        self.image_stream_sub = self.create_subscription(
+            Image, "/camera/image_raw", self.image_callback, 10
         )
-        self.subscription  # prevent unused variable warning
+        self.subscription
 
-    def listener_callback(self, msg):
-        self.get_logger().info('I heard: "%s"' % msg.data)
+    def image_callback(self, msg):
+        # frame = msg.data
+        # TODO: we are doing some color detection to find the ball x and y
+        # we will publish the ball location to a topic called /ball/location
+        pass
 
 
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_subscriber = MinimalSubscriber()
+    ball_detector = BallDetectorNode()
 
-    rclpy.spin(minimal_subscriber)
+    rclpy.spin(ball_detector)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    minimal_subscriber.destroy_node()
+    ball_detector.destroy_node()
     rclpy.shutdown()
 
 
