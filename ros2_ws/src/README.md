@@ -9,6 +9,11 @@ colcon build --symlink-install
 source install/setup.bash
 ros2 launch run.py
 ```
+To observe the camera:
+```bash 
+ros2 run rqt_gui rqt_gui
+```
+
 
 ## Running Tests
 

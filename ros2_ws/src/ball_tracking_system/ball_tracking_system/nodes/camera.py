@@ -22,7 +22,6 @@ class CameraSimNode(Node):
         # Create a white image
         frame = np.ones((self.ball.height, self.ball.width, 3), dtype=np.uint8) * 255
 
-        # Draw the red ball
         cv2.circle(
             frame,
             (int(self.ball.pos[0]), int(self.ball.pos[1])),
