@@ -19,8 +19,9 @@ class CameraSimNode(Node):
         self.ball = Ball(x=100, y=100, radius=40, vx=5, vy=3, width=1280, height=960)
 
     def timer_callback(self):
-        # Create a white image
-        frame = np.ones((self.ball.height, self.ball.width, 3), dtype=np.uint8) * 255
+        frame = (
+            np.ones((self.ball.height, self.ball.width, 3), dtype=np.uint8) * 255
+        )  # Create a white image
 
         cv2.circle(
             frame,
