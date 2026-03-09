@@ -37,7 +37,7 @@ dist/
 
 # IDEs
 .idea/
-.vscode/
+
 *.swp
 
 # MacOS system files
