@@ -6,9 +6,10 @@ COPY requirements.txt .
 RUN apt update
 # Install pip
 RUN apt install -y python3-pip
+RUN apt install -y wget
 RUN pip3 install --upgrade pip
 RUN pip3 install pre-commit
-
+RUN apt install -y ros-humble-cv-bridge
 # Install python dependencies
 RUN apt install -y ros-humble-turtlesim ros-humble-rqt python3-colcon-core python3-colcon-common-extensions
 

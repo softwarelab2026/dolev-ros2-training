@@ -24,6 +24,7 @@ setup(
     entry_points={
         "console_scripts": [
             "camera_node = ball_tracking_system.camera_node:main",
+            "ball_detector_node = ball_tracking_system.ball_detector_node:main",
         ],
     },
 )

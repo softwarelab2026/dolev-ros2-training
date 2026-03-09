@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# EASY-INSTALL-ENTRY-SCRIPT: 'ball-tracking-system','console_scripts','camera_node'
+# EASY-INSTALL-ENTRY-SCRIPT: 'ball-tracking-system','console_scripts','ball_detector_node'
 import re
 import sys
 
@@ -31,5 +31,7 @@ globals().setdefault("load_entry_point", importlib_load_entry_point)
 if __name__ == "__main__":
     sys.argv[0] = re.sub(r"(-script\.pyw?|\.exe)?$", "", sys.argv[0])
     sys.exit(
-        load_entry_point("ball-tracking-system", "console_scripts", "camera_node")()
+        load_entry_point(
+            "ball-tracking-system", "console_scripts", "ball_detector_node"
+        )()
     )
