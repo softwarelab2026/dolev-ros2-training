@@ -8,4 +8,25 @@ from geometry_msgs.msg import Point
 @pytest.mark.unit
 def test_ball_detection_for_default_place(frame: Frame, ball: Ball):
     frame.draw_ball(ball)
-    assert ball_detection_by_color(frame.data) == Point(x=100.0, y=100.0, z=0.0)
+    fake_point = Point(x=100.0, y=100.0, z=0.0)
+    detected_point = ball_detection_by_color(frame.data)
+
+    assert (
+        detected_point.x == fake_point.x
+        and detected_point.y == fake_point.y
+        and detected_point.z == fake_point.z
+    )
+
+
+@pytest.mark.unit
+def test_ball_detection_for_moved_place(frame: Frame, ball: Ball):
+    ball.x = 200
+    ball.y = 150
+    frame.draw_ball(ball)
+    detected_point = ball_detection_by_color(frame.data)
+    fake_point = Point(x=200.0, y=150.0, z=0.0)
+    assert (
+        detected_point.x == fake_point.x
+        and detected_point.y == fake_point.y
+        and detected_point.z == fake_point.z
+    )
