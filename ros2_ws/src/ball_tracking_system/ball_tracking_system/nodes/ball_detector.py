@@ -15,7 +15,7 @@ class BallDetectorNode(Node):
     def __init__(self):
         super().__init__("ball_detector_node")
         self.image_stream_sub = self.create_subscription(
-            Image, "/camera/image_raw", self.image_callback, 10
+            Image, "/camera/image_raw", self.image_callback, 1
         )
         self.image_stream_sub
         self.ball_location_pub = self.create_publisher(Point, "/ball/location", 10)
@@ -25,6 +25,7 @@ class BallDetectorNode(Node):
         try:
             lower_red = np.array([0, 120, 70])
             upper_red = np.array([10, 255, 255])
+
             location = ball_detector.ball_detection_by_color(
                 np_image, lower_red, upper_red
             )
