@@ -3,8 +3,8 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from ball_tracking_system.logic.ball import Ball
-from ball_tracking_system.logic.frame_generator import Frame
+
+from ball_tracking_system.logic.frame_generator import FrameGenerator
 
 
 class CameraSimNode(Node):
@@ -16,13 +16,11 @@ class CameraSimNode(Node):
         self.video_width = 1280
         self.video_height = 960
         self.timer = self.create_timer(1.0 / self.FPS, self.timer_callback)
-        self.ball = Ball(x=100, y=100, radius=40, vx=5, vy=3)
 
     def timer_callback(self):
-        frame = Frame(self.video_width, self.video_height)
-        frame.draw(self.ball)
+        frame = FrameGenerator(self.video_width, self.video_height, ball_radius=20)
 
-        self.ball.update_position(self.video_width, self.video_height)
+        frame.generate_frame()
 
         # Convert to ROS Image message
         image_msg = self.cv_bridge.cv2_to_imgmsg(frame.data, encoding="bgr8")

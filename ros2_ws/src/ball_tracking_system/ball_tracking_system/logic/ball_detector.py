@@ -17,5 +17,5 @@ def ball_detection_by_color(img, lower_red, upper_red) -> Point:
     contour = contours[0]
 
     (x, y), radius = cv2.minEnclosingCircle(contour)
-
+    print(f"Detected ball at: ({x}, {y}) with radius: {radius}")
     return Point(x=x, y=y, z=0.0)
