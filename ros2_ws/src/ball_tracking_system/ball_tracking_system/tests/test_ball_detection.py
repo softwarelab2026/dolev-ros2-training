@@ -1,5 +1,5 @@
 import pytest
-from ball_tracking_system.logic.detector import ball_detection_by_color
+from ball_tracking_system.logic.ball_detector import ball_detection_by_color
 from ball_tracking_system.logic.frame import Frame
 from ball_tracking_system.logic.ball import Ball
 from geometry_msgs.msg import Point

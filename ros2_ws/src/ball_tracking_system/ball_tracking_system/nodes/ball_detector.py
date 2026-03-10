@@ -4,7 +4,7 @@ from rclpy.node import Node
 
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
-from ball_tracking_system.logic import detector
+from ball_tracking_system.logic import ball_detector
 from cv_bridge import CvBridge
 
 
@@ -23,7 +23,7 @@ class BallDetectorNode(Node):
     def image_callback(self, msg: Image):
         np_image = bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
 
-        location = detector.ball_detection_by_color(np_image)
+        location = ball_detector.ball_detection_by_color(np_image)
         self.ball_location_pub.publish(location)
 
 
