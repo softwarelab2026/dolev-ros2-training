@@ -7,6 +7,8 @@ To launch the ball tracking system:
 ```bash
 colcon build --symlink-install
 source install/setup.bash
+ros2 run ball_tracking_system camera_node 
+ros2 run ball_tracking_system ball_detector_node 
 ros2 launch run.py
 ```
 To observe the camera:
