@@ -3,6 +3,8 @@ import rclpy
 from rclpy.node import Node
 
 from sensor_msgs.msg import Image
+from geometry_msgs.msg import Point
+from ball_tracking_system.utils import detection
 
 
 class BallDetectorNode(Node):
@@ -11,25 +13,18 @@ class BallDetectorNode(Node):
         self.image_stream_sub = self.create_subscription(
             Image, "/camera/image_raw", self.image_callback, 10
         )
-        self.subscription
+        self.image_stream_sub
+        self.ball_location_pub = self.create_publisher(Point, "/ball/location", 10)
 
-    def image_callback(self, msg):
-        # frame = msg.data
-        # TODO: we are doing some color detection to find the ball x and y
-        # we will publish the ball location to a topic called /ball/location
-        pass
+    def image_callback(self, msg: Image):
+        location = detection.ball_detection_by_color(msg)
+        self.ball_location_pub.publish(location)
 
 
 def main(args=None):
     rclpy.init(args=args)
-
     ball_detector = BallDetectorNode()
-
     rclpy.spin(ball_detector)
-
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
     ball_detector.destroy_node()
     rclpy.shutdown()
 
