@@ -6,6 +6,12 @@ from geometry_msgs.msg import Point
 
 
 @pytest.mark.unit
+def test_raise_exception_ball_not_found_when_no_ball_in_frame(frame: Frame) -> None:
+    with pytest.raises(Exception, match="Ball not found"):
+        ball_detection_by_color(frame.data)
+
+
+@pytest.mark.unit
 def test_ball_detection_for_default_place(frame: Frame, ball: Ball) -> None:
     frame.draw_ball(ball)
     fake_point = Point(x=100.0, y=100.0, z=0.0)

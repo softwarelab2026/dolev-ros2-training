@@ -15,6 +15,7 @@ def ball_detection_by_color(img) -> Point:
     contours, hierarchy = cv2.findContours(
         red_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE
     )
+
     if len(contours) == 0:
         raise Exception("Ball not found")
     # get the first contour
