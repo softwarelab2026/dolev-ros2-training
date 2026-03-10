@@ -4,7 +4,7 @@ from rclpy.node import Node
 
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
-from ball_tracking_system.utils import detection
+from ball_tracking_system.logic import detector
 
 
 class BallDetectorNode(Node):
@@ -17,7 +17,7 @@ class BallDetectorNode(Node):
         self.ball_location_pub = self.create_publisher(Point, "/ball/location", 10)
 
     def image_callback(self, msg: Image):
-        location = detection.ball_detection_by_color(msg)
+        location = detector.ball_detection_by_color(msg)
         self.ball_location_pub.publish(location)
 
 
