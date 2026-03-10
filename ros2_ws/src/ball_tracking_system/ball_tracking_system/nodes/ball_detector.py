@@ -6,7 +6,7 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
 from ball_tracking_system.logic import ball_detector
 from cv_bridge import CvBridge
-
+import numpy as np
 
 bridge = CvBridge()
 
@@ -22,9 +22,15 @@ class BallDetectorNode(Node):
 
     def image_callback(self, msg: Image):
         np_image = bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
-
-        location = ball_detector.ball_detection_by_color(np_image)
-        self.ball_location_pub.publish(location)
+        try:
+            lower_red = np.array([0, 120, 70])
+            upper_red = np.array([10, 255, 255])
+            location = ball_detector.ball_detection_by_color(
+                np_image, lower_red, upper_red
+            )
+            self.ball_location_pub.publish(location)
+        except Exception as e:
+            self.get_logger().error(f"Error detecting ball: {e}")
 
 
 def main(args=None):
