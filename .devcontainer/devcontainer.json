@@ -12,6 +12,13 @@
     "source=${env:HOME}/.ssh/id_ed25519.pub,target=/root/.ssh/id_ed25519.pub,type=bind",
     "source=${env:HOME}/.ssh/known_hosts,target=/root/.ssh/known_hosts,type=bind"
   ],
-
-  "remoteUser": "root"
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  }
 }

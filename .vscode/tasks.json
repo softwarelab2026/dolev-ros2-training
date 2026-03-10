@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Unit Tests",
+            "type": "shell",
+            "command": "python3 -m pytest -m unit",
+            "options": {
+                "cwd": "${workspaceFolder}/ros2_ws/src/ball_tracking_system",
+               
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
