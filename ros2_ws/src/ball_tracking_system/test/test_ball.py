@@ -4,9 +4,9 @@ from ball_tracking_system.logic.frame import Frame
 
 
 @pytest.mark.unit
-def test_ball_movement_by_velocity(ball: Ball) -> None:
+def test_ball_movement_by_velocity(ball: Ball, frame: Frame) -> None:
     pos = ball.pos.copy()
-    ball.move_by_velocity()
+    ball.update_position(frame.width, frame.height)
 
     assert ball.pos[0] == pos[0] + 5
     assert ball.pos[1] == pos[1] + 3
