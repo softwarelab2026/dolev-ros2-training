@@ -9,7 +9,7 @@ class Frame:
         self.height = height
         self.data = np.ones((height, width, 3), dtype=np.uint8) * 255
 
-    def draw_ball(self, ball: Ball):
+    def draw(self, ball: Ball):
         cv2.circle(
             self.data,
             (int(ball.pos[0]), int(ball.pos[1])),

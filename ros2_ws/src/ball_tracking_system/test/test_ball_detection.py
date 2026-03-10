@@ -1,6 +1,6 @@
 import pytest
 from ball_tracking_system.logic.ball_detector import ball_detection_by_color
-from ball_tracking_system.logic.frame import Frame
+from ball_tracking_system.logic.frame_generator import Frame
 from ball_tracking_system.logic.ball import Ball
 from geometry_msgs.msg import Point
 
@@ -17,7 +17,7 @@ def test_raise_exception_ball_not_found_when_no_ball_in_frame(
 def test_ball_detection_for_default_place(
     frame: Frame, ball: Ball, lower_red, upper_red
 ) -> None:
-    frame.draw_ball(ball)
+    frame.draw(ball)
     fake_point = Point(x=100.0, y=100.0, z=0.0)
     detected_point = ball_detection_by_color(frame.data, lower_red, upper_red)
 
@@ -29,7 +29,7 @@ def test_ball_detection_for_moved_by_velocity(
     frame: Frame, ball: Ball, lower_red, upper_red
 ) -> None:
     ball.update_position(frame.width, frame.height)
-    frame.draw_ball(ball)
+    frame.draw(ball)
 
     detected_point = ball_detection_by_color(frame.data, lower_red, upper_red)
     fake_point = Point(x=105.0, y=103.0, z=0.0)
@@ -42,7 +42,7 @@ def test_ball_detection_for_moved_place(
     frame: Frame, ball: Ball, lower_red, upper_red
 ) -> None:
     ball.set_position(200, 150)
-    frame.draw_ball(ball)
+    frame.draw(ball)
 
     detected_point = ball_detection_by_color(frame.data, lower_red, upper_red)
 

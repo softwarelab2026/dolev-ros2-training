@@ -1,5 +1,5 @@
 from ball_tracking_system.logic.ball import Ball
-from ball_tracking_system.logic.frame import Frame
+from ball_tracking_system.logic.frame_generator import Frame
 
 import pytest
 

@@ -4,7 +4,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from ball_tracking_system.logic.ball import Ball
-from ball_tracking_system.logic.frame import Frame
+from ball_tracking_system.logic.frame_generator import Frame
 
 
 class CameraSimNode(Node):
@@ -20,7 +20,7 @@ class CameraSimNode(Node):
 
     def timer_callback(self):
         frame = Frame(self.video_width, self.video_height)
-        frame.draw_ball(self.ball)
+        frame.draw(self.ball)
 
         self.ball.update_position(self.video_width, self.video_height)
 
