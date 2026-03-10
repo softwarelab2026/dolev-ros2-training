@@ -5,15 +5,20 @@
 To launch the ball tracking system:
 
 ```bash
+cd ros_ws
 colcon build --symlink-install
 source install/setup.bash
-ros2 run ball_tracking_system camera_node 
-ros2 run ball_tracking_system ball_detector_node 
-ros2 launch run.py
+ros2 launch launch/ball_tracking_system_launch.py
 ```
-To observe the camera:
+if you want to achive the same resault but with ton of terminals:
 ```bash 
+
+ros2 run ball_tracking_system camera_node
+ros2 run ball_tracking_system ball_detector_node 
+ros2 run ball_tracking_system control_robot_node 
 ros2 run rqt_gui rqt_gui
+ros2 run turtlesim turtlesim_node
+
 ```
 
 
