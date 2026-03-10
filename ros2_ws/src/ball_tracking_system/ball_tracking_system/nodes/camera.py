@@ -12,7 +12,7 @@ class CameraSimNode(Node):
         super().__init__("camera_sim_node")
         self.publisher_ = self.create_publisher(Image, "/camera/image_raw", 10)
         self.cv_bridge = CvBridge()
-        self.FPS = 60
+        self.FPS = 10
         self.video_width = 1280
         self.video_height = 960
         self.timer = self.create_timer(1.0 / self.FPS, self.timer_callback)

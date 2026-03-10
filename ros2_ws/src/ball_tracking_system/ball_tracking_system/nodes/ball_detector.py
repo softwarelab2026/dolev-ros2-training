@@ -25,6 +25,7 @@ def main(args=None):
     rclpy.init(args=args)
     ball_detector = BallDetectorNode()
     rclpy.spin(ball_detector)
+
     ball_detector.destroy_node()
     rclpy.shutdown()
 

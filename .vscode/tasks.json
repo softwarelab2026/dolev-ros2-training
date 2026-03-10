@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "python3 -m pytest -m unit",
             "options": {
-                "cwd": "${workspaceFolder}/ros2_ws/src/ball_tracking_system/ball_tracking_system",
+                "cwd": "${workspaceFolder}/ros2_ws/src/ball_tracking_system",
                
             },
             "group": {

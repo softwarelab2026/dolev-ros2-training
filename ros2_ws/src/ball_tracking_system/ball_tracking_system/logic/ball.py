@@ -1,11 +1,11 @@
 class Ball:
     def __init__(
         self,
-        x: int = 100,
-        y: int = 100,
-        radius: int = 20,
-        vx: int = 5,
-        vy: int = 3,
+        x: float = 100,
+        y: float = 100,
+        radius: float = 20,
+        vx: float = 5,
+        vy: float = 3,
     ) -> None:
         self.pos = [x, y]
         self.vel = [vx, vy]

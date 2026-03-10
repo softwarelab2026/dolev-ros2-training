@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from ball_tracking_system.logic.ball import Ball
 
 
 class Frame:
@@ -8,7 +9,7 @@ class Frame:
         self.height = height
         self.data = np.ones((height, width, 3), dtype=np.uint8) * 255
 
-    def draw_ball(self, ball):
+    def draw_ball(self, ball: Ball):
         cv2.circle(
             self.data,
             (int(ball.pos[0]), int(ball.pos[1])),
@@ -17,7 +18,7 @@ class Frame:
             -1,
         )
 
-    def update_position(self, ball) -> None:
+    def update_position(self, ball: Ball) -> None:
         ball.move_ball()
 
         if self._does_bounce_horizontal(ball):
@@ -25,10 +26,10 @@ class Frame:
         if self._does_bounce_vertical(ball):
             ball.vel[1] *= -1
 
-    def _does_bounce_horizontal(self, ball) -> bool:
+    def _does_bounce_horizontal(self, ball: Ball) -> bool:
         return ball.pos[0] - ball.radius <= 0 or ball.pos[0] + ball.radius >= self.width
 
-    def _does_bounce_vertical(self, ball) -> bool:
+    def _does_bounce_vertical(self, ball: Ball) -> bool:
         return (
             ball.pos[1] - ball.radius <= 0 or ball.pos[1] + ball.radius >= self.height
         )
