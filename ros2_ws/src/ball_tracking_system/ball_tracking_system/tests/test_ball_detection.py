@@ -6,7 +6,7 @@ from geometry_msgs.msg import Point
 
 
 @pytest.mark.unit
-def test_ball_detection_for_default_place(frame: Frame, ball: Ball):
+def test_ball_detection_for_default_place(frame: Frame, ball: Ball) -> None:
     frame.draw_ball(ball)
     fake_point = Point(x=100.0, y=100.0, z=0.0)
     detected_point = ball_detection_by_color(frame.data)
@@ -15,7 +15,7 @@ def test_ball_detection_for_default_place(frame: Frame, ball: Ball):
 
 
 @pytest.mark.unit
-def test_ball_detection_for_moved_by_velocity(frame: Frame, ball: Ball):
+def test_ball_detection_for_moved_by_velocity(frame: Frame, ball: Ball) -> None:
     ball.move_by_velocity()
     frame.draw_ball(ball)
 
@@ -26,7 +26,7 @@ def test_ball_detection_for_moved_by_velocity(frame: Frame, ball: Ball):
 
 
 @pytest.mark.unit
-def test_ball_detection_for_moved_place(frame: Frame, ball: Ball):
+def test_ball_detection_for_moved_place(frame: Frame, ball: Ball) -> None:
     ball.set_position(200, 150)
     frame.draw_ball(ball)
 
