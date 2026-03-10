@@ -17,19 +17,3 @@ class Frame:
             (0, 0, 255),
             -1,
         )
-
-    def update_position(self, ball: Ball) -> None:
-        ball.move_by_velocity()
-
-        if self._does_bounce_horizontal(ball):
-            ball.vel[0] *= -1
-        if self._does_bounce_vertical(ball):
-            ball.vel[1] *= -1
-
-    def _does_bounce_horizontal(self, ball: Ball) -> bool:
-        return ball.pos[0] - ball.radius <= 0 or ball.pos[0] + ball.radius >= self.width
-
-    def _does_bounce_vertical(self, ball: Ball) -> bool:
-        return (
-            ball.pos[1] - ball.radius <= 0 or ball.pos[1] + ball.radius >= self.height
-        )

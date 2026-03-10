@@ -15,12 +15,12 @@ def test_ball_movement_by_velocity(ball: Ball) -> None:
 @pytest.mark.unit
 def test_ball_bounce_vertical_wall(ball: Ball, frame: Frame) -> None:
     ball.pos = [620, 460]  # Near the bottom-right corner
-    frame.update_position(ball)
+    ball.update_position(frame.width, frame.height)
     assert ball.vel[1] == -3
 
 
 @pytest.mark.unit
 def test_ball_bounce_horizontal_wall(ball: Ball, frame: Frame) -> None:
     ball.pos = [620, 460]  # Near the bottom-right corner
-    frame.update_position(ball)
+    ball.update_position(frame.width, frame.height)
     assert ball.vel[0] == -5

@@ -22,7 +22,7 @@ class CameraSimNode(Node):
         frame = Frame(self.video_width, self.video_height)
         frame.draw_ball(self.ball)
 
-        frame.update_position(self.ball)
+        self.ball.update_position(self.video_width, self.video_height)
 
         # Convert to ROS Image message
         image_msg = self.cv_bridge.cv2_to_imgmsg(frame.data, encoding="bgr8")
