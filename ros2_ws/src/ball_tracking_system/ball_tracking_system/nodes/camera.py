@@ -7,9 +7,9 @@ from ball_tracking_system.logic.ball import Ball
 from ball_tracking_system.logic.frame import Frame
 
 
-class CameraSimNode(Node):
+class CameraNode(Node):
     def __init__(self):
-        super().__init__("camera_sim_node")
+        super().__init__("camera_node")
         self.publisher_ = self.create_publisher(Image, "/camera/image_raw", 10)
         self.cv_bridge = CvBridge()
         self.FPS = 10
@@ -32,7 +32,7 @@ class CameraSimNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = CameraSimNode()
+    node = CameraNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

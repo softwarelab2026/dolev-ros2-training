@@ -8,7 +8,7 @@ def generate_launch_description():
             Node(
                 package="ball_tracking_system",
                 executable="camera_node",
-                name="camera_sim_node",
+                name="camera_node",
             ),
             Node(
                 package="ball_tracking_system",
