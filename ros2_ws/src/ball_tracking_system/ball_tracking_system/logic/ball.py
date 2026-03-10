@@ -15,12 +15,12 @@ class Ball:
         self.pos[0] = x
         self.pos[1] = y
 
-    def move_by_velocity(self) -> None:
+    def _move_by_velocity(self) -> None:
         self.pos[0] += self.vel[0]
         self.pos[1] += self.vel[1]
 
     def update_position(self, width, height) -> None:
-        self.move_by_velocity()
+        self._move_by_velocity()
 
         if self._does_bounce_horizontal(width):
             self.vel[0] *= -1

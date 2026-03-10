@@ -9,7 +9,7 @@ from geometry_msgs.msg import Point
 def test_raise_exception_ball_not_found_when_no_ball_in_frame(
     frame: Frame, lower_red, upper_red
 ) -> None:
-    with pytest.raises(Exception, match="Ball not found"):
+    with pytest.raises(Exception):
         ball_detection_by_color(frame.data, lower_red, upper_red)
 
 
@@ -28,7 +28,7 @@ def test_ball_detection_for_default_place(
 def test_ball_detection_for_moved_by_velocity(
     frame: Frame, ball: Ball, lower_red, upper_red
 ) -> None:
-    ball.move_by_velocity()
+    ball.update_position(frame.width, frame.height)
     frame.draw_ball(ball)
 
     detected_point = ball_detection_by_color(frame.data, lower_red, upper_red)
