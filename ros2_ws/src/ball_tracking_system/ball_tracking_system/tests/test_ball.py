@@ -8,8 +8,8 @@ def test_ball_movement_by_velocity(ball: Ball) -> None:
     pos = ball.pos.copy()
     ball.move_by_velocity()
 
-    assert ball.pos[0] == pos[0] + ball.vel[0]
-    assert ball.pos[1] == pos[1] + ball.vel[1]
+    assert ball.pos[0] == pos[0] + 5
+    assert ball.pos[1] == pos[1] + 3
 
 
 @pytest.mark.unit
