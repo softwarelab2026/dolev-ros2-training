@@ -19,7 +19,7 @@ class Frame:
         )
 
     def update_position(self, ball: Ball) -> None:
-        ball.move_ball()
+        ball.move_by_velocity()
 
         if self._does_bounce_horizontal(ball):
             ball.vel[0] *= -1
