@@ -23,17 +23,15 @@ def generate_launch_description():
             Node(
                 package="turtlesim",
                 executable="turtlesim_node",
-                namespace="turtlesim1",
                 name="sim",
             ),
             Node(
                 package="ball_tracking_system",
                 executable="control_robot_node",
                 name="control_robot_node",
-                # remappings=[
-                #     ('/input/ball', '/ball/location'),
-                #     ('/output/cmd_vel', '/turtle1/cmd_vel'),
-                # ],
+                remappings=[
+                    ("/output/cmd_vel", "/turtle1/cmd_vel"),
+                ],
             ),
         ]
     )
