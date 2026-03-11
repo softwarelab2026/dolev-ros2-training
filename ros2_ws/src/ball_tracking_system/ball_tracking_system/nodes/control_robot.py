@@ -7,7 +7,11 @@ from geometry_msgs.msg import Point
 from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
 from ball_tracking_system.nodes.camera import CameraNode
-from ball_tracking_system.utils.mapping import map_coordinate_to_turtlesim_coordinates
+from ball_tracking_system.logic.pid_controller import PID
+from ball_tracking_system.logic.robot_control_calculator import (
+    calculate_velocity_to_ball,
+    map_coordinate_to_turtlesim_coordinates,
+)
 
 
 class ControlRobotNode(Node):
@@ -18,6 +22,9 @@ class ControlRobotNode(Node):
         self.image_width = CameraNode.video_width
         self.image_height = CameraNode.video_height
         self.FPS = CameraNode.FPS
+
+        self.linear_pid = PID(kp=1.5, ki=0.0, kd=0.2)
+        self.angular_pid = PID(kp=4.0, ki=0.0, kd=0.5)
 
         self.ball_location_sub = self.create_subscription(
             Point, "/ball/location", self.ball_location_callback, 10
@@ -40,22 +47,18 @@ class ControlRobotNode(Node):
     def steer_turtle_position(self):
         if self.ball_pose_from_camera is None or self.turtle_pose is None:
             return
-        twist = Twist()
+
         # scale the self.ball_pose.x and self.ball_pose y
         ball_x, ball_y = map_coordinate_to_turtlesim_coordinates(
-            self.ball_pose_from_camera.x, self.ball_pose_from_camera.y
+            self.ball_pose_from_camera.x,
+            self.ball_pose_from_camera.y,
+            self.image_width,
+            self.image_height,
         )
 
-        error_x = ball_x - self.turtle_pose.x
-        error_y = ball_y - self.turtle_pose.y
-
-        self.get_logger().info(
-            f"Ball position: ({self.ball_pose_from_camera.x}, {self.ball_pose_from_camera.y}), Turtle position: ({self.turtle_pose.x}, {self.turtle_pose.y}), Error: ({error_x}, {error_y})"
+        twist = calculate_velocity_to_ball(
+            self.turtle_pose, ball_x, ball_y, self.linear_pid, self.angular_pid
         )
-
-        twist.linear.x = 0.0
-        twist.angular.z = 0.0
-
         self.cmd_vel_pub.publish(twist)
 
 
