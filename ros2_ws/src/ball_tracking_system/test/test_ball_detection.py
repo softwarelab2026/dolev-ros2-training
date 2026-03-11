@@ -32,7 +32,11 @@ def test_ball_detection_for_moved_by_velocity(
     frame_generator.generate_frame()
 
     detected_point = ball_detection_by_color(frame_generator.data, lower_red, upper_red)
-    fake_point = Point(x=325.0, y=243.0, z=0.0)
+
+    expected_x_val = float(frame_generator.ball_pos[0])
+    expected_y_val = float(frame_generator.ball_pos[1])
+
+    fake_point = Point(x=expected_x_val, y=expected_y_val, z=0.0)
 
     assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
 
