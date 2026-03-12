@@ -1,3 +1,4 @@
+echo "export DISPLAY=host.docker.internal:0.0" >> /etc/bash.bashrc 
 cd ros2_ws
 echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
 colcon build --symlink-install
