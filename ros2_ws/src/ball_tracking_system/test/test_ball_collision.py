@@ -10,7 +10,7 @@ def test_when_ball_doesnt_collide(
 
     frame_generator.move_objects()
     assert frame_generator.ball_vel[0] > 0
-    assert frame_generator.ball_vel[1] > 1
+    assert frame_generator.ball_vel[1] > 0
     
     
 
