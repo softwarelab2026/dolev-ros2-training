@@ -24,16 +24,9 @@ class CameraSimNode(Node):
         self._ball = Ball(
             self._video_width,
             self._video_height,
-            ball_radius=20,
-            ball_vel_x=5,
-            ball_vel_y=3,
-        )
-
-        self._frame = generate_frame(
-            self._video_width,
-            self._video_height,
-            self._ball.ball_pos,
-            self._ball.ball_radius,
+            radius=20,
+            vel_x=5,
+            vel_y=3,
         )
 
     def _timer_callback(self):
@@ -41,13 +34,13 @@ class CameraSimNode(Node):
         generated_frame = generate_frame(
             self._video_width,
             self._video_height,
-            self._ball.ball_pos,
-            self._ball.ball_radius,
+            self._ball.pos,
+            self._ball.radius,
         )
 
         image_msg = cv_bridge.cv2_to_imgmsg(generated_frame, encoding="bgr8")
         self._camera_publisher.publish(image_msg)
-        self.get_logger().info(f"Publishing frame with ball at {self._ball.ball_pos}")
+        self.get_logger().info(f"Publishing frame with ball at {self._ball.pos}")
 
 
 def main(args=None):

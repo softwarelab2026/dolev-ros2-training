@@ -17,12 +17,13 @@ def upper_red():
 
 @pytest.fixture
 def ball():
-    return Ball(width=640, height=480, ball_radius=20, ball_vel_x=5, ball_vel_y=3)
+    return Ball(width=640, height=480, radius=20, vel_x=5, vel_y=3)
 
 
 @pytest.fixture
 def frame():
     return generate_frame(640, 480, [320, 240], 20)
+
 
 @pytest.fixture
 def frame_without_ball():
