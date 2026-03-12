@@ -20,7 +20,7 @@ class CameraSimNode(Node):
         self._video_height = 960
 
         self._timer = self.create_timer(1.0 / self._FPS, self._timer_callback)
-        self._frame = FrameGenerator(self._video_width, self._video_height, ball_radius=20)
+        self._frame = FrameGenerator(self._video_width, self._video_height, ball_radius=20, ball_vel_x=5, ball_vel_y=3)
 
     def _timer_callback(self):
         self._frame.move_objects()

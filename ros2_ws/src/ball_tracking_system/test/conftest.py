@@ -17,4 +17,4 @@ def upper_red():
 
 @pytest.fixture
 def frame_generator():
-    return FrameGenerator(width=640, height=480, ball_radius=20)
+    return FrameGenerator(width=640, height=480, ball_radius=20, ball_vel_x=5, ball_vel_y=3)
