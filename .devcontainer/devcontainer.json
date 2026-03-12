@@ -8,10 +8,6 @@
     "-e", "DISPLAY=$DISPLAY",
     "-v", "/tmp/.X11-unix:/tmp/.X11-unix"
   ],
-  "mounts": [
-    "source=${env:HOME}/.ssh/id_ed25519,target=/root/.ssh/id_ed25519,type=bind,consistency=cached",
-    "source=${env:HOME}/.ssh/id_ed25519.pub,target=/root/.ssh/id_ed25519.pub,type=bind,consistency=cached",
-    "source=${env:HOME}/.ssh/known_hosts,target=/root/.ssh/known_hosts,type=bind,consistency=cached"  ],
   "remoteUser": "root",
   "customizations": {
     "vscode": {
@@ -21,5 +17,10 @@
       ]
     }
   },
+  "mounts": [
+  "source=${env:HOME}/.ssh/id_ed25519,target=/root/.ssh/id_ed25519,type=bind,consistency=cached",
+  "source=${env:HOME}/.ssh/id_ed25519.pub,target=/root/.ssh/id_ed25519.pub,type=bind,consistency=cached",
+  "source=${env:HOME}/.ssh/known_hosts,target=/root/.ssh/known_hosts,type=bind,consistency=cached"
+],
   "postStartCommand": "./.devcontainer/ros2_commands.sh"
 }
