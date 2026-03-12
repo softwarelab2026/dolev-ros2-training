@@ -13,6 +13,8 @@ RUN pip3 install pre-commit pytest
 
 RUN apt update
 
+
+
 RUN apt update && apt install -y --no-install-recommends \
     ros-humble-turtlesim \
     ros-humble-rqt \

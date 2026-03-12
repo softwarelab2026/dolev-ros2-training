@@ -3,3 +3,7 @@ cd ros2_ws
 echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
 colcon build --symlink-install
 echo 'source /workspaces/dolev-ros2-training/ros2_ws/install/setup.bash' >> ~/.bashrc
+
+chmod 700 /root/.ssh 
+chmod 600 /root/.ssh/id_ed25519 
+chmod 644 /root/.ssh/id_ed25519.pub /root/.ssh/known_hosts
