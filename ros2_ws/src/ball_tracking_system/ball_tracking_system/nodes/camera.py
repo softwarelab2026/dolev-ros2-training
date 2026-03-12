@@ -24,9 +24,8 @@ class CameraSimNode(Node):
 
     def _timer_callback(self):
         self._frame.move_objects()
-        self._frame.generate_frame()
-
-        image_msg = cv_bridge.cv2_to_imgmsg(self._frame.data, encoding="bgr8")
+        generated_frame = self._frame.generate_frame()
+        image_msg = cv_bridge.cv2_to_imgmsg(generated_frame, encoding="bgr8")
         self._camera_publisher.publish(image_msg)
         self.get_logger().info(f"Publishing frame with ball at {self._frame.ball_pos}")
 

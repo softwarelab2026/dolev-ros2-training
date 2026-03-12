@@ -44,3 +44,5 @@ class FrameGenerator:
             (0, 0, 255),
             -1,
         )
+        return self.data
+    
