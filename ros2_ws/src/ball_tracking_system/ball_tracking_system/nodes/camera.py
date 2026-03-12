@@ -9,28 +9,45 @@ from ball_tracking_system.logic.ball import Ball
 
 cv_bridge = CvBridge()
 
+
 class CameraSimNode(Node):
     def __init__(self):
         super().__init__("camera_sim_node")
         self._camera_publisher = self.create_publisher(Image, "/camera/image_raw", 10)
-        
+
         self._FPS = 10
 
         self._video_width = 1280
         self._video_height = 960
 
         self._timer = self.create_timer(1.0 / self._FPS, self._timer_callback)
-        self._ball = Ball(self._video_width, self._video_height, ball_radius=20, ball_vel_x=5, ball_vel_y=3)
+        self._ball = Ball(
+            self._video_width,
+            self._video_height,
+            ball_radius=20,
+            ball_vel_x=5,
+            ball_vel_y=3,
+        )
 
-        self._frame = generate_frame(self._video_width, self._video_height,self._ball.ball_pos, self._ball.ball_radius)
+        self._frame = generate_frame(
+            self._video_width,
+            self._video_height,
+            self._ball.ball_pos,
+            self._ball.ball_radius,
+        )
 
     def _timer_callback(self):
-        
-        generated_frame = generate_frame(self._video_width, self._video_height,self._ball.ball_pos, self._ball.ball_radius)
-        
+        self._ball.move_objects()
+        generated_frame = generate_frame(
+            self._video_width,
+            self._video_height,
+            self._ball.ball_pos,
+            self._ball.ball_radius,
+        )
+
         image_msg = cv_bridge.cv2_to_imgmsg(generated_frame, encoding="bgr8")
         self._camera_publisher.publish(image_msg)
-        self.get_logger().info(f"Publishing frame with ball at {self._frame.ball_pos}")
+        self.get_logger().info(f"Publishing frame with ball at {self._ball.ball_pos}")
 
 
 def main(args=None):
