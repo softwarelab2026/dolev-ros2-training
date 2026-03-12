@@ -14,23 +14,23 @@ bridge = CvBridge()
 class BallDetectorNode(Node):
     def __init__(self):
         super().__init__("ball_detector_node")
-        self.image_stream_sub = self.create_subscription(
-            Image, "/camera/image_raw", self.image_callback, 10
+        self._image_stream_sub = self.create_subscription(
+            Image, "/camera/image_raw", self._image_callback, 10
         )
-        self.image_stream_sub
+        self._image_stream_sub
 
-        self.lower_red = np.array([0, 120, 70])
-        self.upper_red = np.array([10, 255, 255])
+        self._lower_red = np.array([0, 120, 70])
+        self._upper_red = np.array([10, 255, 255])
 
-        self.ball_location_pub = self.create_publisher(Point, "/ball/location", 10)
+        self._ball_location_pub = self.create_publisher(Point, "/ball/location", 10)
 
-    def image_callback(self, msg: Image):
+    def _image_callback(self, msg: Image):
         np_image = bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
         try:
             location = ball_detector.ball_detection_by_color(
-                np_image, self.lower_red, self.upper_red
+                np_image, self._lower_red, self._upper_red
             )
-            self.ball_location_pub.publish(location)
+            self._ball_location_pub.publish(location)
         except Exception as e:
             self.get_logger().error(f"Error detecting ball: {e}")
 
