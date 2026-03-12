@@ -15,3 +15,4 @@ RUN apt install -y ros-humble-turtlesim ros-humble-rqt ros-humble-cv-bridge pyth
 
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
+

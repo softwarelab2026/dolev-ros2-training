@@ -20,5 +20,6 @@
         "ms-python.vscode-pylance"
       ]
     }
-  }
+  },
+  "postStartCommand": "./.devcontainer/ros2_commands.sh"
 }
