@@ -10,28 +10,28 @@ class FrameGenerator:
         self._ball_radius = ball_radius
 
         self.ball_pos = [width // 2, height // 2]
-        self.ball_val = [5, 3]
+        self.ball_vel = [5, 3]
 
         self.data = np.ones((height, width, 3), dtype=np.uint8) * 255
-
+    
     def move_objects(self):
         self._move_ball()
 
     def _move_ball(self):
-        self.ball_pos[0] += self.ball_val[0]
-        self.ball_pos[1] += self.ball_val[1]
+        self.ball_pos[0] += self.ball_vel[0]
+        self.ball_pos[1] += self.ball_vel[1]
 
         if (
             self.ball_pos[0] <= self._ball_radius
             or self.ball_pos[0] >= self._width - self._ball_radius
         ):
-            self.ball_val[0] = -self.ball_val[0]
+            self.ball_vel[0] = -self.ball_vel[0]
 
         if (
             self.ball_pos[1] <= self._ball_radius
             or self.ball_pos[1] >= self._height - self._ball_radius
         ):
-            self.ball_val[1] = -self.ball_val[1]
+            self.ball_vel[1] = -self.ball_vel[1]
 
     def generate_frame(self):
         self.data = np.ones((self._height, self._width, 3), dtype=np.uint8) * 255
