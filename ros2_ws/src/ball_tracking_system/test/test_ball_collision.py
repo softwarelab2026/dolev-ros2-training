@@ -18,10 +18,6 @@ def test_when_ball_movement() -> None:
 @pytest.mark.unit
 def test_ball_bounce_vertical_wall() -> None:
     ball = Ball(width=200, height=200, radius=20, vel_x=40, vel_y=2)
-    100
-    140
-    180
-    140
     ball.move_objects()
     ball.move_objects()
     ball.move_objects()
