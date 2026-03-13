@@ -3,7 +3,11 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from ball_tracking_system.logic.frame_generator import FrameGenerator
+from ball_tracking_system.logic.frame_generator import generate_frame
+from ball_tracking_system.logic.ball import Ball
+
+
+cv_bridge = CvBridge()
 
 cv_bridge = CvBridge()
 
@@ -14,21 +18,35 @@ class CameraNode(Node):
     FPS = 10
 
     def __init__(self):
-        super().__init__("camera_node")
-        self.image_publisher = self.create_publisher(Image, "/camera/image_raw", 10)
+        super().__init__("camera_sim_node")
+        self._camera_publisher = self.create_publisher(Image, "/camera/image_raw", 10)
 
-        self.timer = self.create_timer(1.0 / self.FPS, self._publish_image)
-        self.frame = FrameGenerator(self.video_width, self.video_height, ball_radius=20)
+        self._FPS = 10
 
-    def _publish_image(self):
-        self.frame.move_objects()
-        self.frame.generate_frame()
-        self.image_publisher.publish(
-            cv_bridge.cv2_to_imgmsg(self.frame.data, encoding="bgr8")
+        self._video_width = 1280
+        self._video_height = 960
+
+        self._timer = self.create_timer(1.0 / self._FPS, self._timer_callback)
+        self._ball = Ball(
+            self._video_width,
+            self._video_height,
+            radius=20,
+            vel_x=5,
+            vel_y=3,
         )
-        self.get_logger().info(
-            f"The frame was generate the ball location is {self.frame.ball_pos}"
+
+    def _timer_callback(self):
+        self._ball.move_objects()
+        generated_frame = generate_frame(
+            self._video_width,
+            self._video_height,
+            self._ball.pos,
+            self._ball.radius,
         )
+
+        image_msg = cv_bridge.cv2_to_imgmsg(generated_frame, encoding="bgr8")
+        self._camera_publisher.publish(image_msg)
+        self.get_logger().info(f"Publishing frame with ball at {self._ball.pos}")
 
 
 def main(args=None):
