@@ -2,11 +2,8 @@ FROM osrf/ros:humble-desktop
 
 WORKDIR /ros2_ws
 
-COPY ../ros2_ws/ ./  
+COPY . .
 
-COPY ./ros2_ws/run.sh /ros2_ws/run.sh
-
-RUN chmod +x /ros2_ws/run.sh
 
 RUN apt update && apt install -y \
     python3-pip \
@@ -28,5 +25,6 @@ RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
 
 ENV DISPLAY=host.docker.internal:0
 
+RUN chmod +x /ros2_ws/build_and_run.sh
 
-CMD ["/ros2_ws/run.sh"]
+ENTRYPOINT ["/bin/bash", "/ros2_ws/build_and_run.sh"]
