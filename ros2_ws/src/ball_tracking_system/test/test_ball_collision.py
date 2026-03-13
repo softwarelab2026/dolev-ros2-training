@@ -18,7 +18,10 @@ def test_when_ball_movement() -> None:
 @pytest.mark.unit
 def test_ball_bounce_vertical_wall() -> None:
     ball = Ball(width=200, height=200, radius=20, vel_x=40, vel_y=2)
-
+    100
+    140
+    180
+    140
     ball.move_objects()
     ball.move_objects()
     ball.move_objects()
@@ -28,6 +31,9 @@ def test_ball_bounce_vertical_wall() -> None:
 
 @pytest.mark.unit
 def test_ball_bounce_horizontal_wall(ball: Ball) -> None:
-    ball.pos = [300, 480]
+    ball = Ball(width=200, height=200, radius=20, vel_x=40, vel_y=120)
     ball.move_objects()
-    assert ball.pos[1] == 477
+    
+    
+
+    assert ball.pos[1] == 140
