@@ -7,12 +7,12 @@ def test_when_ball_movement() -> None:
     vel_x = 5
     vel_y = 3
     ball = Ball(width=640, height=480, radius=20, vel_x=vel_x, vel_y=vel_y)
-    x_before, y_before = ball.pos
+    
     ball.move_objects()
-    x_after, y_after = ball.pos
+    
 
-    assert x_before + 5 == x_after
-    assert y_before + 3 == y_after
+    assert ball.pos[0] == 325
+    assert ball.pos[1] == 243
 
 
 @pytest.mark.unit
