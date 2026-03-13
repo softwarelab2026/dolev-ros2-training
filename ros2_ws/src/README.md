@@ -1,8 +1,7 @@
 How to run: 
 
 ```bash
-chmod +x build_and_run.sh
-./build_and_run.sh
+./run.sh
 ```
 How to develop:
 ```
