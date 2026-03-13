@@ -1,0 +1,11 @@
+
+services:
+  ros2:
+    build:
+      context: .          
+      dockerfile: .devcontainer/Dockerfile
+      
+    container_name: ros2_container_compose2
+    
+    tty: true
+    stdin_open: true

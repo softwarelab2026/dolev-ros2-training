@@ -18,7 +18,7 @@ class CameraNode(Node):
     FPS = 10
 
     def __init__(self):
-        super().__init__("camera_sim_node")
+        super().__init__("camera_node")
         self._camera_publisher = self.create_publisher(Image, "/camera/image_raw", 10)
 
         self._FPS = 10

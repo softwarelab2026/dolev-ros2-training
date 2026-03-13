@@ -1,4 +1,0 @@
-services:
-  ros2_ws:
-    build: .
-    
