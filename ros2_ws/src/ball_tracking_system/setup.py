@@ -25,6 +25,7 @@ setup(
         "console_scripts": [
             "camera_node = ball_tracking_system.nodes.camera:main",
             "ball_detector_node = ball_tracking_system.nodes.ball_detector:main",
+            "control_robot_node = ball_tracking_system.nodes.control_robot:main",
         ],
     },
 )

@@ -1,27 +1,20 @@
-# Ball Tracking System
-
-## Launching the Ball Tracking System
-
-To launch the ball tracking system:
+How to run: 
 
 ```bash
-colcon build --symlink-install
-source install/setup.bash
-ros2 launch run.py
+./run.sh
 ```
-To observe the camera:
-```bash 
-ros2 run rqt_gui rqt_gui
+How to develop:
 ```
-
-
-## Running Tests
-
-To run tests you can use tasks:
-
+Use the devcontainer oepn in Vscode and Build with devcontainer extention 
+```
+How to run tests:
+```
+Inside the devcontainer just use .vscode/tasks
+assign a beautiful shortcut to run the tests easily
+```
 ```bash
-cd ros2_ws/src/ball_tracking_system/ball_tracking_system
+
+cd ./ros2_ws/src/ball_tracking_system
 python3 -m pytest -m unit
 ```
 
-Or just use the `tasks.json` (like a normal human being).

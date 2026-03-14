@@ -1,75 +1,52 @@
-Robotics Course Assignment: Turtlesim Ball Tracking
+Turtlesim Ball Tracking System
 
-Objective:
-In this assignment, students will create a ROS2 node in Python that enables a simulated robot to follow a ball within the Turtlesim simulator. Using image processing techniques, the robot should detect and track a ball in an input camera stream. Students will implement a position controller to move the robot towards the ball’s position within the simulated environment.
+The idea is a robot (turtlesim) that follows a ball from a virtual camera
 
-Assignment Details:
+System build:
 
-1.⁠ ⁠Environment Setup:
+Camera Node: 
+responsible for creating frames with the help of the numpy framework i was able to generate frames that opencv can work with 
 
-Use the Turtlesim simulator as the environment where the robot will move.
+Ball Detection Node:
+The Node was responsible to subscribe to Camera Node and publish the ball location every given moment
 
-Students are expected to be familiar with ROS2 and Python for writing nodes and handling image messages.
-
-
-
-2.⁠ ⁠Requirements:
-
-Develop a ROS2 node in Python.
-
-The node should subscribe to an image topic (e.g., /camera/image_raw) which provides a camera feed. An Image message containing a simulated video feed with the ball will be given as input.
-
-The node should process each frame of this image to detect the position of the ball.
-
-Use image processing techniques (such as color segmentation, contour detection, etc.) to identify the ball in the image. The ball's position should be considered as the target or goal for the robot.
-
-Implement a position controller for the robot that calculates the control commands required to move the robot towards the ball's position.
+Control robot node:
+The Node was responsible to subscribe to the ball location and subscribe to the robot pose and publish to the cmd_vel the velocity that the robot should have in order to steer towards the ball 
 
 
+Information about the probject 
+The camera was created with opencv framework
 
-3.⁠ ⁠Expected Functionality:
+The ball detection was possible with color detection  and contours detection. (thats how i detect the ball like contour)
 
-When the ball moves, the robot should adjust its trajectory accordingly to keep following the ball.
-
-The control node should publish the desired velocity and direction commands to steer the robot towards the goal (i.e., the detected position of the ball).
-
-The robot’s motion should be smooth and responsive, aiming to center on the ball as it moves within the Turtlesim environment.
-
-
-
-4.⁠ ⁠Technical Requirements:
-
-Node should subscribe to the /camera/image_raw topic to receive image data.
-
-Process images using OpenCV (or any preferred image processing library) to detect the ball’s position.
-
-Implement a simple proportional control strategy for steering towards the detected position of the ball.
-
-Publish control commands to /turtle1/cmd_vel or the equivalent topic for controlling the Turtlesim robot.
-
-
-
-5.⁠ ⁠Submission Requirements:
-
-A well-commented Python script for the ROS2 node.
-
-A brief report explaining the approach, image processing technique, and control strategy used. Describe any challenges faced and how they were addressed.
-
-Include any test results, observations, or examples of the robot following the ball in the Turtlesim simulation.
-
-
-
-6.⁠ ⁠Evaluation Criteria:
-
-Functionality: Does the node detect the ball and accurately control the robot towards it?
-
-Code Quality: Is the code well-structured, with meaningful comments and clear logic?
-
-Control Strategy: Is the control strategy effective in achieving smooth and responsive movement?
-
-Documentation: Does the report explain the approach, techniques used, and challenges clearly?
+The robot control system was PID controller calculating the error and adjusting respectfully to reach the ball
 
 
 
 
-Note: Students are encouraged to use existing ROS2 libraries for image handling and may reference documentation for OpenCV and ROS2. This assignment requires a good understanding of image processing and basic control systems.
+How to run: 
+```bash
+chmod +x build_and_run.sh
+./build_and_run.sh
+```
+How to develop:
+```
+Use the devcontainer oepn in Vscode and Build with devcontainer extention 
+```
+How to run tests:
+```
+Inside the devcontainer just use .vscode/tasks
+assign a beautiful shortcut to run the tests easily
+```
+```bash
+
+cd ./ros2_ws/src/ball_tracking_system
+python3 -m pytest -m unit
+```
+
+
+
+
+
+
+

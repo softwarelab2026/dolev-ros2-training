@@ -9,21 +9,24 @@ from ball_tracking_system.logic.ball import Ball
 
 cv_bridge = CvBridge()
 
+cv_bridge = CvBridge()
 
-class CameraSimNode(Node):
+
+class CameraNode(Node):
+    video_width = 1280
+    video_height = 960
+    FPS = 10
+
     def __init__(self):
-        super().__init__("camera_sim_node")
+        super().__init__("camera_node")
         self._camera_publisher = self.create_publisher(Image, "/camera/image_raw", 10)
 
         self._FPS = 10
 
-        self._video_width = 1280
-        self._video_height = 960
-
         self._timer = self.create_timer(1.0 / self._FPS, self._timer_callback)
         self._ball = Ball(
-            self._video_width,
-            self._video_height,
+            self.video_width,
+            self.video_height,
             radius=20,
             vel_x=5,
             vel_y=3,
@@ -32,8 +35,8 @@ class CameraSimNode(Node):
     def _timer_callback(self):
         self._ball.move_objects()
         generated_frame = generate_frame(
-            self._video_width,
-            self._video_height,
+            self.video_width,
+            self.video_height,
             self._ball.pos,
             self._ball.radius,
         )
@@ -45,7 +48,7 @@ class CameraSimNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = CameraSimNode()
+    node = CameraNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

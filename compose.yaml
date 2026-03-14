@@ -1,0 +1,13 @@
+
+services:
+  ros2:
+    build:
+      context: .          
+      dockerfile: .devcontainer/Dockerfile
+      
+    container_name: ros2_container_compose2
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw   # X11 socket
+    
+    tty: true
+    stdin_open: true

@@ -4,13 +4,9 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
-  "runArgs": [
-    "-e", "DISPLAY=host.docker.internal:0"
-  ],
-  "mounts": [
-    "source=${env:HOME}/.ssh/id_ed25519,target=/root/.ssh/id_ed25519,type=bind",
-    "source=${env:HOME}/.ssh/id_ed25519.pub,target=/root/.ssh/id_ed25519.pub,type=bind",
-    "source=${env:HOME}/.ssh/known_hosts,target=/root/.ssh/known_hosts,type=bind"
+   "runArgs": [
+    "-e", "DISPLAY=$DISPLAY",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix"
   ],
   "remoteUser": "root",
   "customizations": {
@@ -20,5 +16,7 @@
         "ms-python.vscode-pylance"
       ]
     }
-  }
+  },
+
+  "postStartCommand": "./.devcontainer/ros2_commands.sh"
 }
