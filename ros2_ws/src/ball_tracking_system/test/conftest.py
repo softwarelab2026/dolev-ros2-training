@@ -4,7 +4,6 @@ import pytest
 
 import numpy as np
 
-
 @pytest.fixture
 def lower_red():
     return np.array([0, 120, 70])
