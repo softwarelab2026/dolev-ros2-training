@@ -4,18 +4,25 @@ from geometry_msgs.msg import Pose, Twist
 from ball_tracking_system.logic.pid_controller import PID
 
 
-def map_coordinate_to_turtlesim_coordinates(x, y, video_width, video_height):
+def map_coordinate_to_turtlesim_coordinates(
+    x: float, y: float, video_width: int, video_height: int
+) -> tuple[float, float]:
     new_x = (x / video_width) * 11.0
     new_y = ((video_height - y) / video_height) * 11.0
     return new_x, new_y
 
 
-def _normalize_angle(angle):
+def _normalize_angle(angle: float) -> float:
     return math.atan2(math.sin(angle), math.cos(angle))
 
 
 def calculate_velocity_to_ball(
-    turtle_pose: Pose, ball_x, ball_y, linear_pid: PID, angular_pid: PID, dt
+    turtle_pose: Pose,
+    ball_x: float,
+    ball_y: float,
+    linear_pid: PID,
+    angular_pid: PID,
+    dt: float,
 ) -> Twist:
     dx = ball_x - turtle_pose.x
     dy = ball_y - turtle_pose.y

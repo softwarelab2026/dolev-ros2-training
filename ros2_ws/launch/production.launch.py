@@ -1,8 +1,9 @@
+from typing import Any
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
 
-def generate_launch_description():
+def generate_launch_description() -> Any:
     return LaunchDescription(
         [
             Node(

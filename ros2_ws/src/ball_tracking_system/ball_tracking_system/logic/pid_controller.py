@@ -1,15 +1,12 @@
-import time
-
-
 class PID:
-    def __init__(self, kp, ki, kd):
+    def __init__(self, kp: float, ki: float, kd: float) -> None:
         self._kp = kp
         self._ki = ki
         self._kd = kd
-        self._prev_error = 0
-        self._integral = 0
+        self._prev_error = 0.0
+        self._integral = 0.0
 
-    def compute(self, error, dt):
+    def compute(self, error: float, dt: float) -> float:
         self._integral += error * dt
 
         if dt > 0:

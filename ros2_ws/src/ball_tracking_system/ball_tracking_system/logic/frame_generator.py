@@ -2,10 +2,9 @@ import numpy as np
 import cv2
 
 
-
-
-
-def generate_frame(width, height, ball_pos, ball_radius):
+def generate_frame(
+    width: int, height: int, ball_pos: list[float], ball_radius: float
+) -> np.ndarray:
     frame = np.ones((height, width, 3), dtype=np.uint8) * 255
     cv2.circle(
         frame,
@@ -14,4 +13,4 @@ def generate_frame(width, height, ball_pos, ball_radius):
         (0, 0, 255),
         -1,
     )
-    return frame 
+    return frame

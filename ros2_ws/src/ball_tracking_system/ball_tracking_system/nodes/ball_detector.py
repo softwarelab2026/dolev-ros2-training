@@ -1,4 +1,5 @@
 # detects the ball in from the image topic stream and publishes the ball location
+from typing import Any
 import rclpy
 from rclpy.node import Node
 
@@ -11,8 +12,8 @@ import numpy as np
 bridge = CvBridge()
 
 
-class BallDetectorNode(Node):
-    def __init__(self):
+class BallDetectorNode(Node):  # type: ignore[misc]
+    def __init__(self) -> None:
         super().__init__("ball_detector_node")
         self._image_stream_sub = self.create_subscription(
             Image, "/camera/image_raw", self._image_callback, 10
@@ -24,7 +25,7 @@ class BallDetectorNode(Node):
 
         self._ball_location_pub = self.create_publisher(Point, "/ball/location", 10)
 
-    def _image_callback(self, msg: Image):
+    def _image_callback(self, msg: Image) -> None:
         np_image = bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
         try:
             location = ball_detector.ball_detection_by_color(
@@ -35,7 +36,7 @@ class BallDetectorNode(Node):
             self.get_logger().error(f"Error detecting ball: {e}")
 
 
-def main(args=None):
+def main(args: Any = None) -> None:
     rclpy.init(args=args)
     ball_detector = BallDetectorNode()
     rclpy.spin(ball_detector)

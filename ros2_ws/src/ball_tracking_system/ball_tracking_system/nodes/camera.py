@@ -1,5 +1,6 @@
 # camera_sim_node.py
 import rclpy
+from typing import Any
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
@@ -9,15 +10,13 @@ from ball_tracking_system.logic.ball import Ball
 
 cv_bridge = CvBridge()
 
-cv_bridge = CvBridge()
 
-
-class CameraNode(Node):
+class CameraNode(Node):  # type: ignore[misc]
     video_width = 1280
     video_height = 960
     FPS = 10
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("camera_node")
         self._camera_publisher = self.create_publisher(Image, "/camera/image_raw", 10)
 
@@ -32,7 +31,7 @@ class CameraNode(Node):
             vel_y=3,
         )
 
-    def _timer_callback(self):
+    def _timer_callback(self) -> None:
         self._ball.move()
         generated_frame = generate_frame(
             self.video_width,
@@ -46,7 +45,7 @@ class CameraNode(Node):
         self.get_logger().info(f"Publishing frame with ball at {self._ball.pos}")
 
 
-def main(args=None):
+def main(args: Any = None) -> None:
     rclpy.init(args=args)
     node = CameraNode()
     rclpy.spin(node)

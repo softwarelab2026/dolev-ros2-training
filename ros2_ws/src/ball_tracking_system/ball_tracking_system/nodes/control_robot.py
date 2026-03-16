@@ -1,6 +1,5 @@
 # subscribe to the ball location node and steer the robot towards the ball with pwd control
 
-
 from rclpy.node import Node
 import rclpy
 from geometry_msgs.msg import Point
@@ -14,8 +13,8 @@ from ball_tracking_system.logic.robot_control_calculator import (
 )
 
 
-class ControlRobotNode(Node):
-    def __init__(self):
+class ControlRobotNode(Node):  # type: ignore[misc]
+    def __init__(self) -> None:
         super().__init__("control_robot_node")
         self._ball_pose_from_camera: Point = None
         self._turtle_pose: Pose = None
@@ -40,13 +39,13 @@ class ControlRobotNode(Node):
 
         self.create_timer(1.0 / self._FPS, self._steer_turtle_position)
 
-    def _ball_location_callback(self, msg: Point):
+    def _ball_location_callback(self, msg: Point) -> None:
         self._ball_pose_from_camera = msg
 
-    def _pose_callback(self, msg: Pose):
+    def _pose_callback(self, msg: Pose) -> None:
         self._turtle_pose = msg
 
-    def _steer_turtle_position(self):
+    def _steer_turtle_position(self) -> None:
         if self._ball_pose_from_camera is None or self._turtle_pose is None:
             return
 
@@ -61,7 +60,6 @@ class ControlRobotNode(Node):
         duration = current_time - self._previous_time
         dt = duration.nanoseconds / 1e9
         self._previous_time = current_time
-        
 
         twist = calculate_velocity_to_ball(
             self._turtle_pose, ball_x, ball_y, self._linear_pid, self._angular_pid, dt
@@ -70,7 +68,7 @@ class ControlRobotNode(Node):
         self._cmd_vel_pub.publish(twist)
 
 
-def main(args=None):
+def main(args: list[str] | None = None) -> None:
     rclpy.init(args=args)
     node = ControlRobotNode()
     rclpy.spin(node)

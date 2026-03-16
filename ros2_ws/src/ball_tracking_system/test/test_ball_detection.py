@@ -3,26 +3,28 @@ from ball_tracking_system.logic.ball_detector import ball_detection_by_color
 from ball_tracking_system.logic.frame_generator import generate_frame
 from ball_tracking_system.logic.ball import Ball
 from geometry_msgs.msg import Point
-
+import numpy as np
 
 
 def test_raise_exception_ball_not_found_when_no_ball_in_frame(
-    frame_without_ball, lower_red, upper_red
+    frame_without_ball: np.ndarray, lower_red: np.ndarray, upper_red: np.ndarray
 ) -> None:
     with pytest.raises(Exception):
         ball_detection_by_color(frame_without_ball, lower_red, upper_red)
 
 
-
-def test_ball_detection_for_default_place(frame, lower_red, upper_red) -> None:
+def test_ball_detection_for_default_place(
+    frame: np.ndarray, lower_red: np.ndarray, upper_red: np.ndarray
+) -> None:
     fake_point = Point(x=320.0, y=240.0, z=0.0)
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
 
     assert detected_point == fake_point
 
 
-
-def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
+def test_ball_detection_for_moved_by_velocity(
+    lower_red: np.ndarray, upper_red: np.ndarray
+) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
     ball.move()
@@ -34,8 +36,9 @@ def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
     assert fake_point == detected_point
 
 
-
-def test_ball_detection_for_moved_after_x_times(lower_red, upper_red) -> None:
+def test_ball_detection_for_moved_after_x_times(
+    lower_red: np.ndarray, upper_red: np.ndarray
+) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
 

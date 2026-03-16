@@ -1,8 +1,11 @@
 from geometry_msgs.msg import Point
 import cv2
+import numpy as np
 
 
-def ball_detection_by_color(img, lower_red, upper_red) -> Point:
+def ball_detection_by_color(
+    img: np.ndarray, lower_red: list[int], upper_red: list[int]
+) -> Point:
     hsvFrame = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     red_mask = cv2.inRange(hsvFrame, lower_red, upper_red)
