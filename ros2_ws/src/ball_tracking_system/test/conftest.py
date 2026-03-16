@@ -1,7 +1,7 @@
 from ball_tracking_system.logic.ball import Ball
 from ball_tracking_system.logic.frame_generator import generate_frame
 import pytest
-
+from ball_tracking_system.logic.pid_controller import PID
 import numpy as np
 
 @pytest.fixture
@@ -27,3 +27,9 @@ def frame():
 @pytest.fixture
 def frame_without_ball():
     return np.ones((640, 480, 3), dtype=np.uint8) * 255
+
+@pytest.fixture
+def simple_pid():
+    return PID(1, 0, 0)
+
+

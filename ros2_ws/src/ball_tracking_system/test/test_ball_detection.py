@@ -5,7 +5,7 @@ from ball_tracking_system.logic.ball import Ball
 from geometry_msgs.msg import Point
 
 
-@pytest.mark.unit
+
 def test_raise_exception_ball_not_found_when_no_ball_in_frame(
     frame_without_ball, lower_red, upper_red
 ) -> None:
@@ -13,7 +13,7 @@ def test_raise_exception_ball_not_found_when_no_ball_in_frame(
         ball_detection_by_color(frame_without_ball, lower_red, upper_red)
 
 
-@pytest.mark.unit
+
 def test_ball_detection_for_default_place(frame, lower_red, upper_red) -> None:
     fake_point = Point(x=320.0, y=240.0, z=0.0)
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
@@ -21,7 +21,7 @@ def test_ball_detection_for_default_place(frame, lower_red, upper_red) -> None:
     assert detected_point == fake_point
 
 
-@pytest.mark.unit
+
 def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
@@ -34,7 +34,7 @@ def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
     assert fake_point == detected_point
 
 
-@pytest.mark.unit
+
 def test_ball_detection_for_moved_after_x_times(lower_red, upper_red) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
