@@ -26,6 +26,8 @@ class ControlRobotNode(Node):
         self.linear_pid = PID(kp=1.5, ki=0.0, kd=0.2)
         self.angular_pid = PID(kp=4.0, ki=0.0, kd=0.5)
 
+        self.previous_time = self.get_clock().now()
+
         self.ball_location_sub = self.create_subscription(
             Point, "/ball/location", self.ball_location_callback, 10
         )
@@ -48,7 +50,6 @@ class ControlRobotNode(Node):
         if self.ball_pose_from_camera is None or self.turtle_pose is None:
             return
 
-        # scale the self.ball_pose.x and self.ball_pose y
         ball_x, ball_y = map_coordinate_to_turtlesim_coordinates(
             self.ball_pose_from_camera.x,
             self.ball_pose_from_camera.y,
@@ -56,9 +57,16 @@ class ControlRobotNode(Node):
             self.image_height,
         )
 
+        current_time = self.get_clock().now()
+        duration = current_time - self.previous_time
+        dt = duration.nanoseconds / 1e9
+        self.previous_time = current_time
+        
+
         twist = calculate_velocity_to_ball(
-            self.turtle_pose, ball_x, ball_y, self.linear_pid, self.angular_pid
+            self.turtle_pose, ball_x, ball_y, self.linear_pid, self.angular_pid, dt
         )
+
         self.cmd_vel_pub.publish(twist)
 
 

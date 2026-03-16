@@ -15,7 +15,7 @@ def _normalize_angle(angle):
 
 
 def calculate_velocity_to_ball(
-    turtle_pose: Pose, ball_x, ball_y, linear_pid: PID, angular_pid: PID
+    turtle_pose: Pose, ball_x, ball_y, linear_pid: PID, angular_pid: PID, dt
 ) -> Twist:
     dx = ball_x - turtle_pose.x
     dy = ball_y - turtle_pose.y
@@ -25,8 +25,8 @@ def calculate_velocity_to_ball(
     angle_to_ball = math.atan2(dy, dx)
     angle_error = _normalize_angle(angle_to_ball - turtle_pose.theta)
 
-    linear_speed = linear_pid.compute(distance_error)
-    angular_speed = angular_pid.compute(angle_error)
+    linear_speed = linear_pid.compute(distance_error, dt)
+    angular_speed = angular_pid.compute(angle_error, dt)
 
     twist = Twist()
     twist.linear.x = linear_speed

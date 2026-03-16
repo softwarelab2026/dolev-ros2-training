@@ -43,6 +43,7 @@ def test_velocity_to_ball_when_turtle_same_y_with_ball(simple_pid):
         ball_y=0,
         linear_pid=simple_pid,
         angular_pid=simple_pid,
+        dt=1
     )
 
 
@@ -61,6 +62,7 @@ def test_velocity_to_ball_when_turtle_same_x_with_ball(simple_pid):
         ball_y=11.0,
         linear_pid=simple_pid,
         angular_pid=simple_pid,
+        dt=1
     )
     assert twist.linear.x == 1
     
@@ -76,6 +78,7 @@ def test_velocity_to_ball_when_turtle_on_different_x_and_y(simple_pid):
         ball_y=11.0,
         linear_pid=simple_pid,
         angular_pid=simple_pid,
+        dt=1
     )
     
     assert pytest.approx(twist.linear.x == 5)
@@ -93,6 +96,7 @@ def test_angular_velocity_to_ball_when_ball_is_45_degrees_from_turtle(simple_pid
         ball_y=1.0,
         linear_pid=simple_pid,
         angular_pid=simple_pid,
+        dt=1
     )
     
     assert pytest.approx(twist.angular.z == math.radians(45))
@@ -108,7 +112,8 @@ def test_angular_velocity_to_ball_when_ball_is_135_degrees_from_turtle(simple_pi
         ball_x=4.0,
         ball_y=6.0,
         linear_pid=simple_pid,
-        angular_pid=simple_pid
+        angular_pid=simple_pid,
+        dt=1
     )
     assert pytest.approx(twist.angular.z == math.radians(135))
 
@@ -122,7 +127,8 @@ def test_angular_velocity_to_ball_when_ball_is_270_degrees_do_normalize_so_it_wi
         ball_x=6.0,
         ball_y=4.0,
         linear_pid=simple_pid,
-        angular_pid=simple_pid
+        angular_pid=simple_pid,
+        dt=1
     )
 
     assert pytest.approx(twist.angular.z == math.radians(-90))

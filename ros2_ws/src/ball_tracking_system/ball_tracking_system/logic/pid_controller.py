@@ -6,17 +6,10 @@ class PID:
         self.kp = kp
         self.ki = ki
         self.kd = kd
-
         self.prev_error = 0
         self.integral = 0
-        self.prev_time = time.time()
 
-    def compute(self, error):
-        now = time.time()
-        dt = now - self.prev_time
-
-        self.prev_time = now
-
+    def compute(self, error, dt):
         self.integral += error * dt
 
         if dt > 0:
