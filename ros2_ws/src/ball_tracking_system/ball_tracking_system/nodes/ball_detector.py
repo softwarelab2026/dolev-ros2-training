@@ -38,10 +38,10 @@ class BallDetectorNode(Node):  # type: ignore[misc]
 
 def main(args: Any = None) -> None:
     rclpy.init(args=args)
-    ball_detector = BallDetectorNode()
-    rclpy.spin(ball_detector)
+    ball_detector_node = BallDetectorNode()
+    rclpy.spin(ball_detector_node)
 
-    ball_detector.destroy_node()
+    ball_detector_node.destroy_node()
     rclpy.shutdown()
 
 
