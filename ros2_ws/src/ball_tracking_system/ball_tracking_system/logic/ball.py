@@ -25,7 +25,7 @@ class Ball:
             pos = next_pos
 
         return pos, vel
-    def move_objects(self):
+    def move(self):
 
         self.pos[0], self.vel[0] = self._move_axis(
             self.pos[0],

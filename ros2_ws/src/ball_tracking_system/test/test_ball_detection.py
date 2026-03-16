@@ -25,7 +25,7 @@ def test_ball_detection_for_default_place(frame, lower_red, upper_red) -> None:
 def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
-    ball.move_objects()
+    ball.move()
     frame = generate_frame(width, height, ball.pos, ball.radius)
 
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
@@ -39,9 +39,9 @@ def test_ball_detection_for_moved_after_x_times(lower_red, upper_red) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
 
-    ball.move_objects()
-    ball.move_objects()
-    ball.move_objects()
+    ball.move()
+    ball.move()
+    ball.move()
 
     frame = generate_frame(width, height, ball.pos, ball.radius)
 
