@@ -10,7 +10,7 @@ def map_coordinate_to_turtlesim_coordinates(x, y, video_width, video_height):
     return new_x, new_y
 
 
-def normalize_angle(angle):
+def _normalize_angle(angle):
     return math.atan2(math.sin(angle), math.cos(angle))
 
 
@@ -23,7 +23,7 @@ def calculate_velocity_to_ball(
     distance_error = math.sqrt(dx**2 + dy**2)
 
     angle_to_ball = math.atan2(dy, dx)
-    angle_error = normalize_angle(angle_to_ball - turtle_pose.theta)
+    angle_error = _normalize_angle(angle_to_ball - turtle_pose.theta)
 
     linear_speed = linear_pid.compute(distance_error)
     angular_speed = angular_pid.compute(angle_error)
