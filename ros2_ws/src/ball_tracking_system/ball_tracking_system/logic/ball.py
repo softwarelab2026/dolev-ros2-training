@@ -8,7 +8,7 @@ class Ball:
         self.radius = radius
         self.pos = [width // 2, height // 2]
 
-        self.vel = [vel_x, vel_y]
+        self._vel = [vel_x, vel_y]
 
     def _move_axis(self, pos, vel, min_bound, max_bound):
         next_pos = pos + vel 
@@ -27,16 +27,16 @@ class Ball:
         return pos, vel
     def move(self):
 
-        self.pos[0], self.vel[0] = self._move_axis(
+        self.pos[0], self._vel[0] = self._move_axis(
             self.pos[0],
-            self.vel[0],
+            self._vel[0],
             self.radius,
             self._width - self.radius
         )
 
-        self.pos[1], self.vel[1] = self._move_axis(
+        self.pos[1], self._vel[1] = self._move_axis(
             self.pos[1],
-            self.vel[1],
+            self._vel[1],
             self.radius,
             self._height - self.radius
         )
