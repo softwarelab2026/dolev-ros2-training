@@ -18,7 +18,7 @@ def test_ball_detection_for_default_place(frame, lower_red, upper_red) -> None:
     fake_point = Point(x=320.0, y=240.0, z=0.0)
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
 
-    assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
+    assert detected_point == fake_point
 
 
 @pytest.mark.unit
@@ -31,7 +31,7 @@ def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
     fake_point = Point(x=325.0, y=243.0, z=0.0)
 
-    assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
+    assert fake_point == detected_point
 
 
 @pytest.mark.unit
@@ -49,4 +49,4 @@ def test_ball_detection_for_moved_after_x_times(lower_red, upper_red) -> None:
 
     fake_point = Point(x=335.0, y=249.0, z=0.0)
 
-    assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
+    assert detected_point == fake_point
