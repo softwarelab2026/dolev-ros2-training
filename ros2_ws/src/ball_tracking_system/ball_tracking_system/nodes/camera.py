@@ -33,7 +33,7 @@ class CameraNode(Node):
         )
 
     def _timer_callback(self):
-        self._ball.move_objects()
+        self._ball.move()
         generated_frame = generate_frame(
             self.video_width,
             self.video_height,
