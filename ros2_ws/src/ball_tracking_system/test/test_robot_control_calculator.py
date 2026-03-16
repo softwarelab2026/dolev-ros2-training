@@ -23,30 +23,30 @@ class FakePose:
 
 
 
-@pytest.mark.unit
+
 def test_mapping_coordinates_to_the_middle_of_turtlesim_screen():
     x,y = map_coordinate_to_turtlesim_coordinates(200, 200, 400, 400)
     assert x == 5.5 and y == 5.5
 
-@pytest.mark.unit
+
 def test_mapping_coordinates_to_the_right_top_corner_of_turtlesim_screen():
     x,y = map_coordinate_to_turtlesim_coordinates(400, 400, 400, 400)
     assert x == 11 and y == 0
 
 
-@pytest.mark.unit
+
 def test_mapping_coordinates_to_the_left_bottom_corner_of_turtlesim_screen():
     x,y = map_coordinate_to_turtlesim_coordinates(0, 0, 400, 400)
     assert x == 0 and y == 11
 
 
-@pytest.mark.unit
+
 def test_mapping_coordinates_to_the_right_bottom_corner_of_turtlesim_screen():
     x,y = map_coordinate_to_turtlesim_coordinates(400, 0, 400, 400)
     assert x == 11 and y == 11
     
 
-@pytest.mark.unit
+
 def test_velocity_to_ball():
     pose = FakePose(0, 0, 0)
 
