@@ -17,57 +17,57 @@ from ball_tracking_system.logic.robot_control_calculator import (
 class ControlRobotNode(Node):
     def __init__(self):
         super().__init__("control_robot_node")
-        self.ball_pose_from_camera: Point = None
-        self.turtle_pose: Pose = None
-        self.image_width = CameraNode.video_width
-        self.image_height = CameraNode.video_height
-        self.FPS = CameraNode.FPS
+        self._ball_pose_from_camera: Point = None
+        self._turtle_pose: Pose = None
+        self._image_width = CameraNode.video_width
+        self._image_height = CameraNode.video_height
+        self._FPS = CameraNode.FPS
 
-        self.linear_pid = PID(kp=1.5, ki=0.0, kd=0.2)
-        self.angular_pid = PID(kp=4.0, ki=0.0, kd=0.5)
+        self._linear_pid = PID(kp=1.5, ki=0.0, kd=0.2)
+        self._angular_pid = PID(kp=4.0, ki=0.0, kd=0.5)
 
-        self.previous_time = self.get_clock().now()
+        self._previous_time = self.get_clock().now()
 
-        self.ball_location_sub = self.create_subscription(
-            Point, "/ball/location", self.ball_location_callback, 10
+        self._ball_location_sub = self.create_subscription(
+            Point, "/ball/location", self._ball_location_callback, 10
         )
 
-        self.turtle_pose_sub = self.create_subscription(
-            Pose, "/turtle1/pose", self.pose_callback, 10
+        self._turtle_pose_sub = self.create_subscription(
+            Pose, "/turtle1/pose", self._pose_callback, 10
         )
 
-        self.cmd_vel_pub = self.create_publisher(Twist, "/output/cmd_vel", 10)
+        self._cmd_vel_pub = self.create_publisher(Twist, "/output/cmd_vel", 10)
 
-        self.create_timer(1.0 / self.FPS, self.steer_turtle_position)
+        self.create_timer(1.0 / self._FPS, self._steer_turtle_position)
 
-    def ball_location_callback(self, msg: Point):
-        self.ball_pose_from_camera = msg
+    def _ball_location_callback(self, msg: Point):
+        self._ball_pose_from_camera = msg
 
-    def pose_callback(self, msg: Pose):
-        self.turtle_pose = msg
+    def _pose_callback(self, msg: Pose):
+        self._turtle_pose = msg
 
-    def steer_turtle_position(self):
-        if self.ball_pose_from_camera is None or self.turtle_pose is None:
+    def _steer_turtle_position(self):
+        if self._ball_pose_from_camera is None or self._turtle_pose is None:
             return
 
         ball_x, ball_y = map_coordinate_to_turtlesim_coordinates(
-            self.ball_pose_from_camera.x,
-            self.ball_pose_from_camera.y,
-            self.image_width,
-            self.image_height,
+            self._ball_pose_from_camera.x,
+            self._ball_pose_from_camera.y,
+            self._image_width,
+            self._image_height,
         )
 
         current_time = self.get_clock().now()
-        duration = current_time - self.previous_time
+        duration = current_time - self._previous_time
         dt = duration.nanoseconds / 1e9
-        self.previous_time = current_time
+        self._previous_time = current_time
         
 
         twist = calculate_velocity_to_ball(
-            self.turtle_pose, ball_x, ball_y, self.linear_pid, self.angular_pid, dt
+            self._turtle_pose, ball_x, ball_y, self._linear_pid, self._angular_pid, dt
         )
 
-        self.cmd_vel_pub.publish(twist)
+        self._cmd_vel_pub.publish(twist)
 
 
 def main(args=None):
