@@ -23,8 +23,8 @@ class ControlRobotNode(Node):
         self.image_height = CameraNode.video_height
         self.FPS = CameraNode.FPS
 
-        self.linear_pid = PID(kp=0.1, ki=0.0, kd=0)
-        self.angular_pid = PID(kp=1, ki=0.0, kd=0)
+        self.linear_pid = PID(kp=1.5, ki=0.0, kd=0.2)
+        self.angular_pid = PID(kp=4.0, ki=0.0, kd=0.5)
 
         self.ball_location_sub = self.create_subscription(
             Point, "/ball/location", self.ball_location_callback, 10
