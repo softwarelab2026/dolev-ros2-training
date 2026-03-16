@@ -25,6 +25,6 @@ RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
 
 ENV DISPLAY=host.docker.internal:0
 
-RUN chmod +x /ros2_ws/build_and_run.sh
+RUN chmod +x /ros2_ws/production.sh
 
-ENTRYPOINT ["/bin/bash", "/ros2_ws/build_and_run.sh"]
+ENTRYPOINT ["/bin/bash", "/ros2_ws/production.sh"]
