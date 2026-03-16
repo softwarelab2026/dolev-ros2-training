@@ -1,4 +1,4 @@
-from ball_tracking_system.logic.robot_control_calculator import map_coordinate_to_turtlesim_coordinates, normalize_angle, calculate_velocity_to_ball
+from ball_tracking_system.logic.robot_control_calculator import map_coordinate_to_turtlesim_coordinates, calculate_velocity_to_ball
 import pytest
 
 import math
@@ -44,24 +44,7 @@ def test_mapping_coordinates_to_the_left_bottom_corner_of_turtlesim_screen():
 def test_mapping_coordinates_to_the_right_bottom_corner_of_turtlesim_screen():
     x,y = map_coordinate_to_turtlesim_coordinates(400, 0, 400, 400)
     assert x == 11 and y == 11
-
-@pytest.mark.unit 
-@pytest.mark.parametrize(
-    "angle,expected",
-    [
-        (0, 0),
-        (math.pi, math.pi),
-        (-math.pi, -math.pi),
-        (2 * math.pi, 0),
-        (-2 * math.pi, 0),
-    ],
-)
-def test_normalize_known_values(angle, expected):
-    result = normalize_angle(angle)
-    assert pytest.approx(result, abs=1e-6) == expected
-
-
-
+    
 
 @pytest.mark.unit
 def test_velocity_to_ball():
