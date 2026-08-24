@@ -1,6 +1,4 @@
-
 repos:
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.9.6
     hooks:
@@ -8,6 +6,18 @@ repos:
         args: [--fix]
       - id: ruff-format
 
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        args:
+          - --ignore-missing-imports
+          - --show-error-codes
 
-
-
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.0.0  
+    hooks:
+      - id: pylint
+        args:
+          - --disable=R0903,R0902,C0103,C0411,W0719,W0718,W0612,R0801,E0401,W0104,C0412,R0913,C0116,C0114,C0115
+          - --ignore-patterns=build|install|log|launch

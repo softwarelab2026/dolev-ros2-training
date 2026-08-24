@@ -4,7 +4,7 @@
         {
             "label": "Run Unit Tests",
             "type": "shell",
-            "command": "python3 -m pytest -m unit",
+            "command": "python3 -m pytest",
             "options": {
                 "cwd": "${workspaceFolder}/ros2_ws/src/ball_tracking_system",
                

@@ -3,45 +3,48 @@ from ball_tracking_system.logic.ball_detector import ball_detection_by_color
 from ball_tracking_system.logic.frame_generator import generate_frame
 from ball_tracking_system.logic.ball import Ball
 from geometry_msgs.msg import Point
+import numpy as np
 
 
-@pytest.mark.unit
 def test_raise_exception_ball_not_found_when_no_ball_in_frame(
-    frame_without_ball, lower_red, upper_red
+    frame_without_ball: np.ndarray, lower_red: np.ndarray, upper_red: np.ndarray
 ) -> None:
     with pytest.raises(Exception):
         ball_detection_by_color(frame_without_ball, lower_red, upper_red)
 
 
-@pytest.mark.unit
-def test_ball_detection_for_default_place(frame, lower_red, upper_red) -> None:
+def test_ball_detection_for_default_place(
+    frame: np.ndarray, lower_red: np.ndarray, upper_red: np.ndarray
+) -> None:
     fake_point = Point(x=320.0, y=240.0, z=0.0)
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
 
-    assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
+    assert detected_point == fake_point
 
 
-@pytest.mark.unit
-def test_ball_detection_for_moved_by_velocity(lower_red, upper_red) -> None:
+def test_ball_detection_for_moved_by_velocity(
+    lower_red: np.ndarray, upper_red: np.ndarray
+) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
-    ball.move_objects()
+    ball.move()
     frame = generate_frame(width, height, ball.pos, ball.radius)
 
     detected_point = ball_detection_by_color(frame, lower_red, upper_red)
     fake_point = Point(x=325.0, y=243.0, z=0.0)
 
-    assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
+    assert fake_point == detected_point
 
 
-@pytest.mark.unit
-def test_ball_detection_for_moved_after_x_times(lower_red, upper_red) -> None:
+def test_ball_detection_for_moved_after_x_times(
+    lower_red: np.ndarray, upper_red: np.ndarray
+) -> None:
     width, height = 640, 480
     ball = Ball(width, height, radius=20, vel_x=5, vel_y=3)
 
-    ball.move_objects()
-    ball.move_objects()
-    ball.move_objects()
+    ball.move()
+    ball.move()
+    ball.move()
 
     frame = generate_frame(width, height, ball.pos, ball.radius)
 
@@ -49,4 +52,4 @@ def test_ball_detection_for_moved_after_x_times(lower_red, upper_red) -> None:
 
     fake_point = Point(x=335.0, y=249.0, z=0.0)
 
-    assert detected_point.x == fake_point.x and detected_point.y == fake_point.y
+    assert detected_point == fake_point

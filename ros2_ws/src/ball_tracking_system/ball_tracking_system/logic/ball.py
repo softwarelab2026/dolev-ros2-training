@@ -1,17 +1,19 @@
-import math
-
 class Ball:
-    def __init__(self, width, height, radius, vel_x, vel_y):
+    def __init__(
+        self, width: float, height: float, radius: float, vel_x: float, vel_y: float
+    ) -> None:
         self._width = width
 
         self._height = height
         self.radius = radius
         self.pos = [width // 2, height // 2]
 
-        self.vel = [vel_x, vel_y]
+        self._vel = [vel_x, vel_y]
 
-    def _move_axis(self, pos, vel, min_bound, max_bound):
-        next_pos = pos + vel 
+    def _move_axis(
+        self, pos: float, vel: float, min_bound: float, max_bound: float
+    ) -> tuple[float, float]:
+        next_pos = pos + vel
         if next_pos <= min_bound:
             overflow = min_bound - next_pos
             pos = min_bound + overflow
@@ -25,18 +27,12 @@ class Ball:
             pos = next_pos
 
         return pos, vel
-    def move_objects(self):
 
-        self.pos[0], self.vel[0] = self._move_axis(
-            self.pos[0],
-            self.vel[0],
-            self.radius,
-            self._width - self.radius
+    def move(self) -> None:
+        self.pos[0], self._vel[0] = self._move_axis(
+            self.pos[0], self._vel[0], self.radius, self._width - self.radius
         )
 
-        self.pos[1], self.vel[1] = self._move_axis(
-            self.pos[1],
-            self.vel[1],
-            self.radius,
-            self._height - self.radius
+        self.pos[1], self._vel[1] = self._move_axis(
+            self.pos[1], self._vel[1], self.radius, self._height - self.radius
         )
